@@ -1,8 +1,0 @@
-# Ignore all files
-*
-
-# Unignore folders
-!*/
-
-# Include C# scripts in "Assets/Resources/" and its subdirectories
-!*.cs

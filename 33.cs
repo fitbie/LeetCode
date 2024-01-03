@@ -28,8 +28,7 @@ public class Solution
                 if (nums[middle] <= nums[^1]) { right = middle; }
                 cycledLast = middle;
             }
-            if (target == nums[cycledLast]) { return cycledLast; }
-            if (target > nums[^1]) { left = -1; right = cycledLast + 1; }
+            if (target > nums[^1]) { left = -1; right = cycledLast; }
             else if (target < nums[^1]) { left = cycledLast - 1; right = nums.Length; }
             else if (target == nums[^1]) { return nums.Length - 1; }
         }

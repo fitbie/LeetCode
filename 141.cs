@@ -1,22 +1,16 @@
-
 public class Solution {
     public bool HasCycle(ListNode head) 
     {
-        HashSet<ListNode> seen = new();
+        ListNode slow = head;
+        ListNode fast = head;
 
-        while (head != null)
+        while (fast != null && fast.next != null)
         {
-            if (!seen.Contains(head))
-            {
-                seen.Add(head);
-            }
-            else
-            {
-                return true;
-            }
-            
-            head = head.next;
-        }    
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) { return true; }
+        }
 
         return false;
     }

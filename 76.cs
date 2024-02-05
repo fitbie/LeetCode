@@ -8,37 +8,46 @@ public class Solution {
         string result = string.Empty;
         if (s.Length < t.Length) { return result; }
 
-        string nonClosed = t;
-        string leftOver = string.Empty;
+        Dictionary<char, int> nonClosed = new();
+        foreach (var c in t)
+        {
+            if (!nonClosed.ContainsKey(c))
+            {
+                nonClosed.Add(c, 0);
+            }
+            nonClosed[c]++;
+        }
+
+        var leftovers = nonClosed.ToDictionary((k) => k.Key, (v) => 0);
         int startIndex = -1;
 
         for (int i = 0; i < s.Length; i++)
         {
             char current = s[i];
-            if (!t.Contains(current)) { continue; }
+            if (!nonClosed.ContainsKey(current)) { continue; }
 
             if (startIndex == -1) { startIndex = i; }
 
-            if (nonClosed.Contains(current))
+            if (nonClosed[current] > 0)
             {
-                nonClosed = nonClosed.Remove(nonClosed.IndexOf(current), 1);
+                nonClosed[current]--;
             }
             else
             {
-                leftOver += current;
+                leftovers[current]++;
 
-                while (leftOver.Contains(s[startIndex]))
+                while (leftovers[s[startIndex]] > 0)
                 {
-                    leftOver = leftOver.Remove(leftOver.IndexOf(s[startIndex]), 1);
+                    leftovers[s[startIndex]]--;
                     startIndex++;
-                    while (!t.Contains(s[startIndex]))
+                    while (!leftovers.ContainsKey(s[startIndex]))
                     {
                         startIndex++;
                     }
                 }
             }
 
-            if (string.IsNullOrEmpty(nonClosed)) 
+            if (nonClosed.Values.All((j) => j == 0)) 
             {
                 string preResult = s[startIndex..(i+1)];
                 if (result == "") { result = preResult; }

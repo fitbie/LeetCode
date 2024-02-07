@@ -1,3 +1,5 @@
+using System.Text;
+
 Solution solution = new();
 solution.FrequencySort("cccaaa");
 
@@ -17,18 +19,18 @@ public class Solution {
             pairs[s[i]]++;
         }
 
-        string result = string.Empty;
-        var sorted = pairs.OrderByDescending((kv) => kv);
+        StringBuilder result = new();
+        var sorted = pairs.OrderByDescending((kv) => kv.Value);
         foreach (var element in sorted)
         {
             var i = element.Value;
             while (i > 0)
             {
-                result += element.Key;
+                result.Append(element.Key);
                 i--;
             }
         }
 
-        return result;
+        return result.ToString();
     }
 }

@@ -1,15 +1,14 @@
 public class Solution {
     public int GetCommon(int[] nums1, int[] nums2) 
     {
-        int fPointer = 0;
-        int sPointer = 0;
+        int p2 = 0;
 
-        for (; fPointer < nums1.Length; fPointer++)
+        for (int p1 = 0; p1 < nums1.Length; p1++)
         {
-            while (sPointer < nums2.Length && nums2[sPointer] <= nums1[fPointer])
+            while (p2 < nums2.Length && nums2[p2] <= nums1[p1])
             {
-                if (nums2[sPointer] == nums1[fPointer]) { return nums2[sPointer]; }
-                sPointer++;
+                if (nums2[p2] == nums1[p1]) { return nums2[p2]; }
+                p2++;
             }
         }
 
